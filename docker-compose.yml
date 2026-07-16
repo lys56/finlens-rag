@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  financial-rag:
+    build: .
+    container_name: financial-rag
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./database:/app/database
+      - ./.env:/app/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    command: streamlit run app.py --server.port=8501 --server.address=0.0.0.0
